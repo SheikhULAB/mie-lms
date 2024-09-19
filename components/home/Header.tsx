@@ -15,7 +15,7 @@ const Header: React.FC = () => {
       {/* Left: Logo */}
       <div className="flex items-center">
         <Link href="/" className="flex items-center">
-          <Image src="/images/logo.png" alt="MIE LMS Logo" width={50} height={50} />
+          <Image src="/images/logo.png" alt="MIE LMS Logo" width={65} height={65} />
         </Link>
       </div>
 

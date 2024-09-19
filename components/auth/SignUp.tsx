@@ -1,105 +1,187 @@
-import React from "react";
-import Link from "next/link"; // Import the Link component
+"use client";
+import React, { useState } from "react";
 
 const SignUp: React.FC = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg flex flex-col md:flex-row w-full max-w-6xl">
-        {/* Left Section: Image and Text */}
-        <div className="bg-black md:w-1/2 p-10 flex items-center justify-center text-center">
-          <div>
-            <h1 className="text-white text-3xl md:text-4xl font-bold mb-4">
-              Welcome to IELTS LMS
-            </h1>
-            <p className="text-white text-lg">
-              Start your journey with us and get ready to Ace your IELTS Exam
-            </p>
-          </div>
-        </div>
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    contactNumber: "",
+    countryCode: "+880",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "student",
+  });
 
-        {/* Right Section: Sign-Up Form */}
-        <div className="p-10 md:w-1/2 bg-white">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">
-            Sign Up for Your Account
-          </h2>
-          <form className="space-y-4">
-            {/* First Name and Last Name */}
-            <div className="flex space-x-4">
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //form submission logic here
+    console.log(formData);
+  };
+
+  return (
+    <div className="container flex flex-col items-center justify-center flex-1 pt-8 mx-auto md:flex-row">
+      {/* Left Panel - Image */}
+      <div className="relative w-full md:w-2/5">
+        <img src="/images/s.jpg" alt="Sign In Image" className="w-full h-auto" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white transition duration-300 bg-black bg-opacity-50 hover:bg-opacity-75">
+          <h2 className="mb-4 text-3xl font-bold">Welcome to IELTS LMS</h2>
+          <p className="mb-8">Start your journey with us and get ready to Ace your IELTS Exam</p>
+        </div>
+      </div>
+
+      {/* Right Panel - Sign Up Form */}
+      <div className="w-full p-8 ml-2 mr-2 bg-white rounded-lg shadow-md md:w-2/5">
+        <h2 className="mb-8 text-3xl font-bold text-center text-gray-800">Sign Up for Your Account</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-2 gap-4">
+            {/* First Name */}
+            <div className="col-span-1 mb-4">
+              <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First Name</label>
               <input
                 type="text"
-                placeholder="First Name"
-                className="w-1/2 p-3 border rounded-md"
-              />
-              <input
-                type="text"
-                placeholder="Last Name"
-                className="w-1/2 p-3 border rounded-md"
+                id="first_name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                className="block w-full px-3 py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                required
               />
             </div>
 
-            {/* Contact Number and Email Address */}
-            <div className="flex space-x-4">
+            {/* Last Name */}
+            <div className="col-span-1 mb-4">
+              <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last Name</label>
               <input
-                type="tel"
-                placeholder="Contact Number"
-                className="w-1/2 p-3 border rounded-md"
+                type="text"
+                id="last_name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                className="block w-full px-3 py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                required
               />
+            </div>
+
+            {/* Contact Number */}
+            <div className="col-span-1 mb-4">
+              <label htmlFor="contact_number" className="block text-sm font-medium text-gray-700">Contact Number</label>
+              <div className="flex">
+                <select
+                  id="country_code"
+                  name="countryCode"
+                  value={formData.countryCode}
+                  onChange={handleInputChange}
+                  className="block w-1/3 px-3 py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                >
+                  <option value="+880">+880</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  {/* Add more country code options as needed */}
+                </select>
+                <input
+                  type="tel"
+                  id="contact_number"
+                  name="contactNumber"
+                  value={formData.contactNumber}
+                  onChange={handleInputChange}
+                  className="flex-1 block w-full px-3 py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="col-span-1 mb-4">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
               <input
                 type="email"
-                placeholder="Email Address"
-                className="w-1/2 p-3 border rounded-md"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="block w-full px-3 py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                required
               />
             </div>
 
-            {/* Password and Retype Password */}
-            <div className="flex space-x-4">
+            {/* Password */}
+            <div className="col-span-1 mb-4">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Create New Password</label>
               <input
                 type="password"
-                placeholder="Create New Password"
-                className="w-1/2 p-3 border rounded-md"
-              />
-              <input
-                type="password"
-                placeholder="Retype Password"
-                className="w-1/2 p-3 border rounded-md"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                className="block w-full px-3 py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                required
               />
             </div>
 
-            {/* Select Role */}
-            <div>
+            {/* Confirm Password */}
+            <div className="col-span-1 mb-4">
+              <label htmlFor="confirm_password" className="block text-sm font-medium text-gray-700">Retype Password</label>
+              <input
+                type="password"
+                id="confirm_password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                className="block w-full px-3 py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                required
+              />
+            </div>
+
+            {/* Role */}
+            <div className="col-span-2 mb-4">
+              <label htmlFor="role" className="block text-sm font-medium text-gray-700">Select Your Role</label>
               <select
-                className="w-full p-3 border rounded-md"
-                defaultValue="Student"
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleInputChange}
+                className="block w-full px-3 py-2 mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
               >
-                <option value="Student">Student</option>
-                <option value="Teacher">Teacher</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+                <option value="admin">Admin</option>
               </select>
             </div>
+          </div>
 
-            {/* Sign Up Button */}
-            <div>
-              <button className="w-full bg-red-500 text-white py-3 rounded-md font-semibold">
-                Sign Up
-              </button>
-            </div>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-white bg-red-600 rounded-md shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          >
+            Sign Up
+          </button>
+        </form>
 
-            {/* Sign In with Google */}
-            <div className="text-center">
-              <p className="text-gray-500 mb-2">Or sign in with Google:</p>
-              <button className="w-full bg-blue-600 text-white py-3 rounded-md font-semibold">
-                Sign In with Google
-              </button>
-            </div>
+        {/* Sign in with Google */}
+        <p className="mt-2 text-sm text-center text-gray-600">Or sign in with Google:</p>
+        <button
+          type="button"
+          className="w-full px-4 py-2 mt-2 text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Sign In with Google
+        </button>
 
-            {/* Sign In Link */}
-            <p className="text-center text-gray-500">
-              Already have an account?{" "}
-              <Link href="/login" className="text-red-500 font-semibold">
-                Sign In
-              </Link>
-            </p>
-          </form>
-        </div>
+        {/* Already have an account */}
+        <p className="mt-4 text-sm text-center text-gray-600">
+          Already have an account?{" "}
+          <a href="/login" className="font-semibold text-red-600">
+            Sign In
+          </a>
+        </p>
       </div>
     </div>
   );
