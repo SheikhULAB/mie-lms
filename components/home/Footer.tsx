@@ -12,9 +12,9 @@ const Footer: React.FC = () => {
             <img
               src="/images/logo.png" 
               alt="MIE LMS Logo"
-              className="w-12 h-12"
+              className="w-16 h-16"
             />
-            <span className="ml-2 font-bold text-2xl">MIE LMS</span>
+   
           </div>
           {/* Social Media Icons */}
           <div className="flex space-x-4 mb-4">

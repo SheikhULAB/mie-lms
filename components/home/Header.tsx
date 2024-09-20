@@ -11,7 +11,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-red-600 p-4 flex justify-between items-center">
+    <header className="bg-red-600 p-4 flex justify-between items-center sticky top-0 z-10">
       {/* Left: Logo */}
       <div className="flex items-center">
         <Link href="/" className="flex items-center">
