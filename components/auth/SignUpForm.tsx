@@ -1,11 +1,26 @@
-// src/components/SignUpForm.tsx
+// src/components/auth/SignUpForm.tsx
+"use client";
+
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { auth } from "@/firebase";
+import { useRouter } from "next/navigation"; // Correct import for App Router
+import { auth, db } from "@/firebase";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  contactNumber: string;
+  countryCode: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: string;
+}
 
 const SignUpForm: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
     contactNumber: "",
@@ -15,6 +30,8 @@ const SignUpForm: React.FC = () => {
     confirmPassword: "",
     role: "student",
   });
+
+  const router = useRouter(); // Now correctly imported from 'next/navigation'
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -35,17 +52,36 @@ const SignUpForm: React.FC = () => {
     }
 
     try {
+      // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password
       );
 
-      // Optionally, update user profile with additional information
-      // e.g., userCredential.user.updateProfile({ displayName: `${formData.firstName} ${formData.lastName}` });
+      const user = userCredential.user;
+
+      // Update user profile with display name
+      await updateProfile(user, {
+        displayName: `${formData.firstName} ${formData.lastName}`,
+      });
+
+      // Save additional user information to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        contactNumber: `${formData.countryCode} ${formData.contactNumber}`,
+        email: formData.email,
+        role: formData.role,
+        createdAt: new Date(),
+      });
 
       toast.success("Signup successful!");
-      console.log("User signed up:", userCredential.user);
+      console.log("User signed up and data saved to Firestore:", user);
+
+      // Redirect to /login
+      router.push("/login");
     } catch (error: any) {
       toast.error(error.message);
       console.error("Error signing up:", error);

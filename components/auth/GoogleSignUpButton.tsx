@@ -1,10 +1,16 @@
-// src/components/GoogleSignUpButton.tsx
+// src/components/auth/GoogleSignUpButton.tsx
+"use client";
+
 import React from "react";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
-import { auth } from "@/firebase";
+import { useRouter } from "next/navigation"; // Correct import for App Router
+import { auth, db } from "@/firebase";
 
 const GoogleSignUpButton: React.FC = () => {
+  const router = useRouter();
+
   const handleGoogleSignUp = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -15,10 +21,29 @@ const GoogleSignUpButton: React.FC = () => {
       // The signed-in user info.
       const user = result.user;
 
-      // Optionally, save the user info to your database here
+      // Check if user data already exists in Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        // If user data doesn't exist, create it
+        await setDoc(userDocRef, {
+          uid: user.uid,
+          firstName: user.displayName?.split(" ")[0] || "",
+          lastName: user.displayName?.split(" ")[1] || "",
+          contactNumber: "", // You can prompt the user to add this information later
+          countryCode: "", // Same as above
+          email: user.email,
+          role: "student", // Default role; adjust as needed
+          createdAt: new Date(),
+        });
+      }
 
       toast.success("Signed up with Google!");
       console.log("User signed up with Google:", user);
+
+      // Redirect to /login
+      router.push("/login");
     } catch (error: any) {
       toast.error(error.message);
       console.error("Error signing up with Google:", error);
