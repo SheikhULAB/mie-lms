@@ -1,10 +1,11 @@
-import ProfileSettings from '@/components/studentDashboard/ProfileSettings';
+
+import SDashboard from '@/components/studentDashboard/SDashboard';
 import React from 'react';
 
 const studentdashboard = () => {
     return (
         <div>
-           <ProfileSettings />
+           <SDashboard />
         </div>
     );
 };
