@@ -13,9 +13,14 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center">
         <h1 className="text-6xl font-bold text-white mb-4">Welcome</h1>
         <p className="text-lg font-medium text-white mb-6">Guiding You To Your Best IELTS Preparation</p>
-        <button className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300">
-          Join Now
-        </button>
+        <div className="flex space-x-4">
+          <button className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300">
+            Join Now
+          </button>
+          <button className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition duration-300">
+            Play Games
+          </button>
+        </div>
       </div>
     </div>
   );

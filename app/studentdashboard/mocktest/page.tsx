@@ -1,10 +1,11 @@
-import MockTestResults from '@/components/studentDashboard/MockTestResults';
+
+import StudentMockTest from '@/components/studentDashboard/StudentMockTest';
 import React from 'react';
 
 const MockTest = () => {
     return (
         <div>
-            <MockTestResults />
+           <StudentMockTest />
         </div>
     );
 };

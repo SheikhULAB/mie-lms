@@ -1,3 +1,4 @@
+import Achievements from "@/components/home/Achievements";
 import EvaluationSection from "@/components/home/EvaluationSection";
 import FAQAccordion from "@/components/home/FAQAccordion";
 import Footer from "@/components/home/Footer";
@@ -14,6 +15,7 @@ export default function Home() {
       <MockTest />
       <EvaluationSection />
       <TestimonialSection />
+      <Achievements />
       <FAQAccordion />
       <Footer />
     </div>

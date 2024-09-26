@@ -26,6 +26,15 @@ const Sidebar = () => {
 
             <li>
               <Link
+                href="/studentdashboard/my-courses"
+                className="flex items-center px-4 py-2 text-gray-300 transition-all duration-300 hover:bg-red-500 hover:text-white"
+              >
+                My Courses
+              </Link>
+            </li>
+
+            <li>
+              <Link
                 href="/studentdashboard/mocktest"
                 className="flex items-center px-4 py-2 text-gray-300 transition-all duration-300 hover:bg-red-500 hover:text-white"
               >

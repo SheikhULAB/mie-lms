@@ -22,21 +22,21 @@ const MockTest: React.FC = () => {
             Free
           </a>
           <a
-            href="/a_mock-10"
+            href="/ielts-academic/a-mock-10"
             id="mock-10"
             className="px-6 py-3 text-white bg-blue-600 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             10 Mock
           </a>
           <a
-            href="/a_mock-20"
+            href="/ielts-academic/a-mock-20"
             id="mock-20"
             className="px-6 py-3 text-white bg-green-600 rounded-md shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
             20 Mock
           </a>
           <a
-            href="/a_mock-30"
+            href="/ielts-academic/a-mock-30"
             id="mock-30"
             className="px-6 py-3 text-white bg-purple-600 rounded-md shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
           >
