@@ -1,8 +1,15 @@
+import Footer from '@/components/home/Footer';
+import Header from '@/components/home/Header';
+import Navbar from '@/components/home/Navbar';
 import React from 'react';
 
 const SubscriptionPlans: React.FC = () => {
   return (
+    <>
+    <Header />
+    <Navbar />
     <div className="py-12 bg-gray-200">
+    
       {/* Hero Section */}
       <div className="text-center">
         <h1 className="text-4xl font-bold text-gray-800">Choose Your Subscription Plan</h1>
@@ -72,7 +79,10 @@ const SubscriptionPlans: React.FC = () => {
           
         </div>
       </div>
+     
     </div>
+     <Footer />
+     </>
   );
 };
 

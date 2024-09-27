@@ -1,6 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import Head from 'next/head';
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 const WritingEvaluation: React.FC = () => {
   const [showFreeEvaluation, setShowFreeEvaluation] = useState(false);
@@ -12,6 +15,8 @@ const WritingEvaluation: React.FC = () => {
 
   return (
     <>
+     <Header />
+     <Navbar />
       {/* Include meta tags and external resources in the Head */}
       <Head>
         <title>Writing Evaluation</title>
@@ -107,6 +112,7 @@ const WritingEvaluation: React.FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

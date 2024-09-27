@@ -1,6 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 const LiveEvents: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +18,8 @@ const LiveEvents: React.FC = () => {
 
   return (
     <div>
+      <Header />
+      <Navbar />
       {/* Banner */}
       <div className="relative live-event-banner">
         <img
@@ -151,6 +156,7 @@ const LiveEvents: React.FC = () => {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 };

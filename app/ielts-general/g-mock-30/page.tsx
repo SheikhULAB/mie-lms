@@ -1,4 +1,7 @@
 import { FC } from 'react';
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 // Mock Buttons Component
 const MockButtons: FC = () => {
@@ -123,6 +126,9 @@ const gMock30: FC = () => {
   const mockSets = Array.from({ length: 30 }, (_, i) => i + 1); // Mock sets 1 to 30
 
   return (
+    <>
+    <Header />
+    <Navbar />
     <div className="container flex flex-col px-4 mx-auto my-8">
       <MockButtons />
       <PriceInfo />
@@ -133,6 +139,8 @@ const gMock30: FC = () => {
         ))}
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

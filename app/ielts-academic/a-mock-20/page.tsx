@@ -1,6 +1,9 @@
 "use client"
 import React from "react";
 import { useRouter } from "next/navigation";
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 const AMockTest20: React.FC = () => {
   const router = useRouter();
@@ -12,6 +15,8 @@ const AMockTest20: React.FC = () => {
 
   return (
     <div>
+      <Header />
+      <Navbar />
       {/* Banner */}
       <div className="relative bg-blue-500 h-60">
         <div className="absolute inset-0 flex items-center justify-center text-center text-white bg-black bg-opacity-50">
@@ -131,6 +136,7 @@ const AMockTest20: React.FC = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

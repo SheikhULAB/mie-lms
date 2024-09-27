@@ -1,9 +1,14 @@
 import React from "react";
 import Link from "next/link";
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 const IeltsGeneral: React.FC = () => {
   return (
     <>
+    <Header />
+    <Navbar />
       {/* Banner */}
       <div className="relative bg-blue-500 h-60">
         <div className="absolute inset-0 flex items-center justify-center text-center text-white bg-black bg-opacity-50">
@@ -261,6 +266,7 @@ const IeltsGeneral: React.FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -1,3 +1,6 @@
+import Footer from "@/components/home/Footer";
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
 import React from "react";
 
 type Resource = {
@@ -30,6 +33,9 @@ const resources: Resource[] = [
 
 const ResourcesPage: React.FC = () => {
   return (
+    <>
+    <Header />
+    <Navbar />
     <div className="container mx-auto py-12 px-4 lg:px-0">
       {/* Page Title */}
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">IELTS Resources</h1>
@@ -94,6 +100,8 @@ const ResourcesPage: React.FC = () => {
         </div>
       </section>
     </div>
+    <Footer />
+    </>
   );
 };
 

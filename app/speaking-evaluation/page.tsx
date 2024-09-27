@@ -1,5 +1,8 @@
 "use client"
 import { useState } from "react";
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 const IELTSSpeakingEvaluation: React.FC = () => {
   const [showFreeEvaluation, setShowFreeEvaluation] = useState(false);
@@ -9,6 +12,9 @@ const IELTSSpeakingEvaluation: React.FC = () => {
   };
 
   return (
+    <>
+    <Header />
+    <Navbar />
     <div className="container py-12 mx-auto">
       {/* Hero Section */}
       <div className="py-8 text-center">
@@ -95,6 +101,8 @@ const IELTSSpeakingEvaluation: React.FC = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

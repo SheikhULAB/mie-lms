@@ -1,4 +1,7 @@
 import { FC } from "react";
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 // Banner Component
 const Banner: FC = () => (
@@ -129,6 +132,8 @@ const MockSet: FC<MockSetProps> = ({ setNumber }) => (
 const gMock10: FC = () => {
   return (
     <div>
+      <Header />
+      <Navbar />
       <Banner />
       <div className="container flex flex-col px-4 mx-auto my-8">
         <MockButtons />
@@ -140,6 +145,7 @@ const gMock10: FC = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

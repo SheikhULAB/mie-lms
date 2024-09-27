@@ -1,5 +1,8 @@
 "use client"
 import { useState } from "react";
+import Header from "@/components/home/Header";
+import Navbar from "@/components/home/Navbar";
+import Footer from "@/components/home/Footer";
 
 const MockTestLanding: React.FC = () => {
   // State to track which test card is expanded
@@ -11,6 +14,9 @@ const MockTestLanding: React.FC = () => {
   };
 
   return (
+    <>
+    <Header />
+    <Navbar />
     <div className="flex items-center justify-center min-h-screen py-12 bg-gray-100">
       <div className="container mx-auto text-center">
         <h1 className="mb-8 text-5xl font-extrabold text-gray-900">IELTS Mock Tests</h1>
@@ -106,6 +112,8 @@ const MockTestLanding: React.FC = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

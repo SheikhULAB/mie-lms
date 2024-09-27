@@ -1,8 +1,13 @@
+import Footer from '@/components/home/Footer';
+import Header from '@/components/home/Header';
+import Navbar from '@/components/home/Navbar';
 import React from 'react';
 
 const MockTest: React.FC = () => {
   return (
     <div>
+      <Header />
+      <Navbar />
       {/* Banner */}
       <div className="relative bg-blue-500 h-60">
         <div className="absolute inset-0 flex items-center justify-center text-center text-white bg-black bg-opacity-50">
@@ -87,6 +92,7 @@ const MockTest: React.FC = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
