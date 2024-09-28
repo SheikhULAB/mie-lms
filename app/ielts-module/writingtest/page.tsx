@@ -1,6 +1,8 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const IELTSWritingTest: React.FC = () => {
   const [task1Text, setTask1Text] = useState<string>("");
@@ -48,12 +50,25 @@ const IELTSWritingTest: React.FC = () => {
     }
   };
 
+  // Function to generate the PDF
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.text("IELTS Writing Test Submission", 10, 10);
+    doc.text("Task 1 Response:", 10, 20);
+    doc.text(task1Text || "No response provided.", 10, 30);
+    doc.text("Task 2 Response:", 10, 60);
+    doc.text(task2Text || "No response provided.", 10, 70);
+    
+    doc.save("IELTS_Writing_Test_Submission.pdf");
+  };
+
   // Submit Test Function
   const submitTest = () => {
     if ((task1Text || task1File) && (task2Text || task2File)) {
       alert("Test submitted successfully!");
+      generatePDF(); // Call generate PDF function on submission
       // Add logic here to send the text or files to the server
-      router.push("/success"); // Redirect to a success page after submission
+      router.push("/ielts-module/writingtest/success"); // Redirect to a success page after submission
     } else {
       alert("Please complete both tasks or upload your files.");
     }
@@ -64,7 +79,7 @@ const IELTSWritingTest: React.FC = () => {
       {/* Topbar with Logo */}
       <header className="bg-red-600 shadow-md">
         <div className="flex items-center justify-between px-4 py-4 mx-auto max-w-7xl">
-        <a href="#" className="text-xl font-bold text-white">
+          <a href="#" className="text-xl font-bold text-white">
             <img src="/logo.png" alt="MIE LMS" className="inline-block w-12 h-12" />
           </a>
           <h1 className="text-lg font-semibold text-white">IELTS Writing Test</h1>
