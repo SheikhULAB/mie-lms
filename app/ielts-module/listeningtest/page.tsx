@@ -1,21 +1,43 @@
-"use client"
-import { FC, useState } from "react";
+"use client";
+import { FC, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 const IELTSListeningTest: FC = () => {
   const [formData, setFormData] = useState({
     q1: "",
+    q11: "",
+    q21: "",
+    q31: "",
     name: "",
     email: "",
     phone: "",
   });
 
+  const contentRef = useRef<HTMLDivElement>(null); // Reference to the content to be converted to PDF
+  const router = useRouter();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handlePDFGeneration = () => {
+    const input = contentRef.current;
+    if (input) {
+      html2canvas(input).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, "PNG", 0, 0, 210, 297); // A4 size (210mm x 297mm)
+        pdf.save("IELTSListeningTest.pdf");
+        router.push("/ielts-module/listeningtest/success");
+      });
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Data: ", formData);
+    handlePDFGeneration();
   };
 
   return (
@@ -31,7 +53,10 @@ const IELTSListeningTest: FC = () => {
       </header>
 
       {/* Main Content */}
-      <div className="max-w-5xl px-6 py-12 mx-auto mt-8 bg-white rounded-lg shadow-md">
+      <div
+        ref={contentRef} // Referencing the content to be converted to PDF
+        className="max-w-5xl px-6 py-12 mx-auto mt-8 bg-white rounded-lg shadow-md"
+      >
         <h2 className="text-2xl font-bold text-center text-gray-800">IELTS Listening Test</h2>
         <p className="mt-2 text-center text-gray-600">Time: 30 minutes | Number of questions: 40</p>
 
@@ -154,14 +179,34 @@ const IELTSListeningTest: FC = () => {
                 Match the description with the correct option.
                 <br />
                 <label className="block">
-                  <input type="radio" name="q11" value="A" className="mr-2" />
+                  <input
+                    type="radio"
+                    name="q11"
+                    value="A"
+                    onChange={handleChange}
+                    className="mr-2"
+                  />
                   Option A:
-                  <input type="text" className="w-full p-1 ml-2 border rounded" placeholder="e.g., Description A" />
+                  <input
+                    type="text"
+                    className="w-full p-1 ml-2 border rounded"
+                    placeholder="e.g., Description A"
+                  />
                 </label>
                 <label className="block">
-                  <input type="radio" name="q11" value="B" className="mr-2" />
+                  <input
+                    type="radio"
+                    name="q11"
+                    value="B"
+                    onChange={handleChange}
+                    className="mr-2"
+                  />
                   Option B:
-                  <input type="text" className="w-full p-1 ml-2 border rounded" placeholder="e.g., Description B" />
+                  <input
+                    type="text"
+                    className="w-full p-1 ml-2 border rounded"
+                    placeholder="e.g., Description B"
+                  />
                 </label>
               </li>
             </ul>
@@ -171,11 +216,19 @@ const IELTSListeningTest: FC = () => {
             <ul className="mt-4 space-y-2 list-decimal list-inside">
               <li>
                 He mentioned that the most important factor is
-                <input type="text" className="w-full p-1 ml-2 border rounded" placeholder="e.g., punctuality" />
+                <input
+                  type="text"
+                  className="w-full p-1 ml-2 border rounded"
+                  placeholder="e.g., punctuality"
+                />
               </li>
               <li>
                 The event will take place in
-                <input type="text" className="w-full p-1 ml-2 border rounded" placeholder="e.g., London" />
+                <input
+                  type="text"
+                  className="w-full p-1 ml-2 border rounded"
+                  placeholder="e.g., London"
+                />
               </li>
             </ul>
           </div>
@@ -187,93 +240,61 @@ const IELTSListeningTest: FC = () => {
           <p className="mt-4 text-gray-600">Listen to an interview and answer the questions (Questions 21-30):</p>
 
           <div className="mt-6">
-            <h4 className="font-semibold text-gray-800">Questions 21-25: Multiple Choice</h4>
+            <h4 className="font-semibold text-gray-800">Questions 21-25: Short Answer</h4>
+            <p className="text-gray-600">Answer the following questions:</p>
             <ul className="mt-4 space-y-2 list-decimal list-inside">
               <li>
-                What is the main topic of the interview?
-                <br />
-                <label className="block">
-                  <input type="radio" name="q21" value="A" className="mr-2" />
-                  A. Technology
-                </label>
-                <label className="block">
-                  <input type="radio" name="q21" value="B" className="mr-2" />
-                  B. Travel
-                </label>
-                <label className="block">
-                  <input type="radio" name="q21" value="C" className="mr-2" />
-                  C. Education
-                </label>
-                <label className="block">
-                  <input type="radio" name="q21" value="D" className="mr-2" />
-                  D. Health
-                </label>
-              </li>
-            </ul>
-
-            <h4 className="mt-6 font-semibold text-gray-800">Questions 26-30: Short Answer Questions</h4>
-            <ul className="mt-4 space-y-2 list-decimal list-inside">
-              <li>
-                What is the name of the person being interviewed?
-                <br />
-                <input type="text" className="w-full p-1 mt-1 border rounded" placeholder="e.g., Sarah Smith" />
-              </li>
-              <li>
-                What is the primary purpose of the interview?
-                <br />
-                <input type="text" className="w-full p-1 mt-1 border rounded" placeholder="e.g., Discuss new trends" />
+                What is the main focus of the interview?
+                <input
+                  type="text"
+                  name="q21"
+                  value={formData.q21}
+                  onChange={handleChange}
+                  className="w-full p-1 ml-2 border rounded"
+                  placeholder="e.g., Project management"
+                />
               </li>
             </ul>
           </div>
         </section>
 
-        {/* Section 4 */}
+        {/* Additional Sections */}
         <section className="mt-8">
           <h3 className="text-xl font-semibold text-gray-700">Section 4: Lecture</h3>
-          <p className="mt-4 text-gray-600">Listen to a lecture and answer the questions (Questions 31-40):</p>
+          <p className="mt-4 text-gray-600">
+            Listen to the lecture and answer the questions (Questions 31-40):
+          </p>
 
           <div className="mt-6">
-            <h4 className="font-semibold text-gray-800">Questions 31-35: Multiple Choice</h4>
+            <h4 className="font-semibold text-gray-800">Questions 31-35: Summary Completion</h4>
+            <p className="text-gray-600">
+              Complete the summary using words from the audio:
+            </p>
             <ul className="mt-4 space-y-2 list-decimal list-inside">
               <li>
-                What is the main focus of the lecture?
-                <br />
-                <label className="block">
-                  <input type="radio" name="q31" value="A" className="mr-2" />
-                  A. Environmental issues
-                </label>
-                <label className="block">
-                  <input type="radio" name="q31" value="B" className="mr-2" />
-                  B. Historical events
-                </label>
-                <label className="block">
-                  <input type="radio" name="q31" value="C" className="mr-2" />
-                  C. Scientific discoveries
-                </label>
-                <label className="block">
-                  <input type="radio" name="q31" value="D" className="mr-2" />
-                  D. Cultural practices
-                </label>
+                The main topic discussed was
+                <input
+                  type="text"
+                  name="q31"
+                  value={formData.q31}
+                  onChange={handleChange}
+                  className="w-full p-1 ml-2 border rounded"
+                  placeholder="e.g., Climate change"
+                />
               </li>
             </ul>
-
-            <h4 className="mt-6 font-semibold text-gray-800">Questions 36-40: Note Completion</h4>
-            <div className="p-4 mt-4 rounded-lg bg-gray-50">
-              <p className="text-gray-700">
-                Lecture Topic:
-                <input type="text" className="w-full p-1 ml-2 border rounded" placeholder="e.g., Climate Change" />
-              </p>
-              <p className="text-gray-700">
-                Key Point 1:
-                <input type="text" className="w-full p-1 ml-2 border rounded" placeholder="e.g., Greenhouse gases" />
-              </p>
-              <p className="text-gray-700">
-                Key Point 2:
-                <input type="text" className="w-full p-1 ml-2 border rounded" placeholder="e.g., Rising sea levels" />
-              </p>
-            </div>
           </div>
         </section>
+      </div>
+
+      {/* Submit Button */}
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={handleSubmit}
+          className="px-6 py-2 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Submit Test and Generate PDF
+        </button>
       </div>
     </div>
   );
