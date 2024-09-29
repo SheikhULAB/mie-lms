@@ -1,9 +1,14 @@
 // components/IeltsReadingTest.tsx
-"use client"
+"use client";
+
 import { useState } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { useRouter } from 'next/navigation'; 
 
 const IeltsReadingTest: React.FC = () => {
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
+  const router = useRouter(); // Initialize useRouter for navigation
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -11,13 +16,48 @@ const IeltsReadingTest: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    // Logic to handle form submission, such as sending the answers to a server
     console.log(answers);
     alert('Test submitted successfully!');
+    generatePDF(); // Call PDF generation after submission
+  };
+
+  const generatePDF = () => {
+    const input = document.getElementById('reading-test');
+    if (!input) {
+      alert('Element not found for PDF generation.');
+      return;
+    }
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF();
+      const imgWidth = 190; // Width of the image in PDF
+      const pageHeight = pdf.internal.pageSize.height;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save('IELTS_Reading_Test.pdf');
+
+      // Navigate to the success page after generating the PDF
+      router.push('/ielts-module/readingtest/success');
+    }).catch((error) => {
+      console.error('PDF generation failed:', error);
+      alert('Failed to generate PDF. Please try again.');
+    });
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div id="reading-test" className="bg-gray-100 min-h-screen">
       {/* Topbar with Logo */}
       <header className="bg-red-600 shadow-md">
         <div className="flex items-center justify-between px-4 py-4 mx-auto max-w-7xl">
@@ -157,11 +197,13 @@ const IeltsReadingTest: React.FC = () => {
                   <input type="radio" name="q20" value="A" onChange={handleInputChange} className="mr-2" />
                   The role of digital technology in education.
                 </label>
+              </li>
+              {/* Repeat for other questions */}
+              <li>
                 <label className="block">
-                  <input type="radio" name="q20" value="B" onChange={handleInputChange} className="mr-2" />
+                  <input type="radio" name="q20" value="A" onChange={handleInputChange} className="mr-2" />
                   How digital innovation has transformed healthcare.
                 </label>
-                {/* Add more options here */}
               </li>
             </ul>
           </div>
@@ -173,62 +215,68 @@ const IeltsReadingTest: React.FC = () => {
           <div className="p-4 mt-4 rounded-lg bg-gray-50">
             <p className="text-gray-700">Read the passage below and answer the questions (Questions 27-40):</p>
             <p className="mt-2 text-gray-600">
-              <strong>Passage Title:</strong> The Future of Transportation.<br />
-              Text: Transportation systems worldwide are on the verge of a revolution with the advent of autonomous vehicles...
+              <strong>Passage Title:</strong> Advances in Renewable Energy.<br />
+              Text: Renewable energy sources have gained significant attention as viable alternatives to fossil fuels...
             </p>
           </div>
 
           <div className="mt-6">
-            <h4 className="font-semibold text-gray-800">Questions 27-33: Short Answer Questions</h4>
-            <p className="text-gray-600">Answer the following questions using words from the passage.</p>
+            <h4 className="font-semibold text-gray-800">Questions 27-32: Short Answer Questions</h4>
+            <p className="text-gray-600">Answer the questions below using no more than three words from the passage.</p>
             <ul className="mt-4 space-y-2 list-decimal list-inside">
               <li>
-                What technology is expected to dominate the future of transportation?<br />
+                What type of energy is derived from the sun?
                 <input
                   type="text"
                   name="q27"
-                  className="w-full p-1 mt-1 border rounded"
-                  placeholder="e.g., autonomous vehicles"
+                  className="w-32 p-1 ml-2 border rounded"
+                  placeholder="e.g., solar"
                   onChange={handleInputChange}
                 />
               </li>
               <li>
-                Which country has been leading the development of electric vehicles?<br />
+                What is the primary benefit of wind energy?
                 <input
                   type="text"
                   name="q28"
-                  className="w-full p-1 mt-1 border rounded"
-                  placeholder="e.g., USA"
+                  className="w-32 p-1 ml-2 border rounded"
+                  placeholder="e.g., sustainability"
                   onChange={handleInputChange}
                 />
               </li>
               {/* Repeat for other questions */}
             </ul>
 
-            <h4 className="mt-6 font-semibold text-gray-800">Questions 34-40: Matching Information</h4>
-            <p className="text-gray-600">Match the statements to the correct information in the passage.</p>
+            <h4 className="mt-6 font-semibold text-gray-800">Questions 33-40: Multiple Choice</h4>
+            <p className="text-gray-600">Choose the correct option (A, B, C, or D) for each question.</p>
             <ul className="mt-4 space-y-2 list-decimal list-inside">
               <li>
+                What is the main challenge of renewable energy adoption?<br />
                 <label className="block">
-                  <input type="radio" name="q34" value="A" onChange={handleInputChange} className="mr-2" />
-                  Autonomous vehicles will reduce traffic accidents.
+                  <input type="radio" name="q33" value="A" onChange={handleInputChange} className="mr-2" />
+                  A. High cost
                 </label>
                 <label className="block">
-                  <input type="radio" name="q34" value="B" onChange={handleInputChange} className="mr-2" />
-                  Electric vehicles are already being widely used in some countries.
+                  <input type="radio" name="q33" value="B" onChange={handleInputChange} className="mr-2" />
+                  B. Lack of technology
                 </label>
-                {/* Add more options here */}
+                <label className="block">
+                  <input type="radio" name="q33" value="C" onChange={handleInputChange} className="mr-2" />
+                  C. Public resistance
+                </label>
+                <label className="block">
+                  <input type="radio" name="q33" value="D" onChange={handleInputChange} className="mr-2" />
+                  D. Inconsistent policies
+                </label>
               </li>
+              {/* Repeat for other questions */}
             </ul>
           </div>
         </section>
 
-        {/* Submission Button */}
-        <div className="mt-12 text-center">
-          <button
-            onClick={handleSubmit}
-            className="px-6 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700"
-          >
+        {/* Submit Button */}
+        <div className="flex justify-center mt-8">
+          <button onClick={handleSubmit} className="px-4 py-2 font-semibold text-white bg-red-600 rounded shadow hover:bg-red-700">
             Submit Answers
           </button>
         </div>
