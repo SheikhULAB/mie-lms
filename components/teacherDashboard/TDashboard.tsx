@@ -3,7 +3,6 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 
-// Define interfaces for the evaluation test and notifications if needed
 interface MockTest {
   id: number;
   title: string;
@@ -24,7 +23,6 @@ interface Notification {
 }
 
 const TDashboard: React.FC = () => {
-  // Sample data for mock tests, evaluation tests, and notifications
   const mockTests: MockTest[] = [
     { id: 1, title: "Mock Test 1", className: "Class 10A" },
     { id: 2, title: "Mock Test 2", className: "Class 10B" },
@@ -39,69 +37,60 @@ const TDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen">
       <Sidebar />
-      <div className="flex-1 p-6 space-y-6">
+      <div className="flex-1 p-6 space-y-6 overflow-y-auto">
         {/* Mock Test Overview Section */}
         <section className="p-6 bg-white rounded-lg shadow-lg">
           <h2 className="text-2xl font-semibold text-gray-800">Mock Test Overview</h2>
-          <div className="relative mt-4">
-            <div className="overflow-y-auto max-h-64">
-              <ul className="space-y-4">
-                {mockTests.map((test) => (
-                  <li key={test.id} className="flex items-center p-4 bg-gray-100 rounded-lg shadow-md">
-                    <div className="p-3 bg-blue-600 rounded-full">
-                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M4 4h16v16H4V4z" />
-                      </svg>
-                    </div>
-                    <div className="ml-4">
-                      <p className="text-lg font-semibold text-gray-800">{test.title}</p>
-                      <p className="text-gray-600">{test.className}</p>
-                    </div>
-                    <div className="ml-auto space-x-2">
-                      <button className="px-4 py-2 text-white bg-blue-600 rounded-lg">Download Paper</button>
-                      <button className="px-4 py-2 text-white bg-green-600 rounded-lg">Upload Marks</button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 flex justify-center pt-4 bg-gradient-to-t from-white">
-              <button className="px-4 py-2 text-white bg-gray-800 rounded-lg">Scroll to see more</button>
-            </div>
+          <div className="mt-4 space-y-4 lg:max-h-64 overflow-y-auto">
+            {mockTests.map((test) => (
+              <div key={test.id} className="bg-gray-100 rounded-lg shadow-md p-4 flex items-center space-x-4">
+                <div className="p-3 bg-blue-600 rounded-full">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4 4h16v16H4V4z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-lg font-semibold text-gray-800">{test.title}</p>
+                  <p className="text-gray-600">{test.className}</p>
+                </div>
+                <div className="space-x-2">
+                  <button className="px-4 py-2 text-white bg-blue-600 rounded-lg">Download Paper</button>
+                  <button className="px-4 py-2 text-white bg-green-600 rounded-lg">Upload Marks</button>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Evaluation Test Section */}
         <section className="p-6 bg-white rounded-lg shadow-lg">
           <h2 className="text-2xl font-semibold text-gray-800">Evaluation Test</h2>
-          <div className="mt-4">
-            <div className="overflow-x-auto">
-              <table className="min-w-full bg-white">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-4 py-2 text-left text-gray-600">Evaluation Test</th>
-                    <th className="px-4 py-2 text-left text-gray-600">Class</th>
-                    <th className="px-4 py-2 text-left text-gray-600">Due Date</th>
-                    <th className="px-4 py-2 text-left text-gray-600">Action</th>
+          <div className="mt-4 overflow-x-auto">
+            <table className="min-w-full bg-white">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-4 py-2 text-left text-gray-600">Evaluation Test</th>
+                  <th className="px-4 py-2 text-left text-gray-600">Class</th>
+                  <th className="px-4 py-2 text-left text-gray-600">Due Date</th>
+                  <th className="px-4 py-2 text-left text-gray-600">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {evaluationTests.map((test) => (
+                  <tr key={test.id}>
+                    <td className="px-4 py-2">{test.title}</td>
+                    <td className="px-4 py-2">{test.className}</td>
+                    <td className="px-4 py-2">{test.dueDate}</td>
+                    <td className="px-4 py-2 space-x-2">
+                      <button className="px-4 py-2 text-white bg-blue-600 rounded-lg">Download Test</button>
+                      <button className="px-4 py-2 text-white bg-green-600 rounded-lg">Upload Marked File</button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {evaluationTests.map((test) => (
-                    <tr key={test.id}>
-                      <td className="px-4 py-2">{test.title}</td>
-                      <td className="px-4 py-2">{test.className}</td>
-                      <td className="px-4 py-2">{test.dueDate}</td>
-                      <td className="px-4 py-2">
-                        <button className="px-4 py-2 text-white bg-blue-600 rounded-lg">Download Test</button>
-                        <button className="px-4 py-2 text-white bg-green-600 rounded-lg">Upload Marked File</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 

@@ -69,23 +69,23 @@ const EventDetailsDashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col md:flex-row h-screen">
       {/* Sidebar positioned on the left */}
       <Sidebar />
 
       {/* Main content area */}
       <div className="flex-1 p-6 space-y-6 bg-gradient-to-br from-gray-100 via-white to-gray-50">
         {/* Event List Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Posted Events</h2>
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Posted Events</h2>
           <div className="mt-4">
             <ul className="space-y-4">
               {events.map((event, index) => (
                 <li
                   key={index}
-                  className="flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow-md"
+                  className="flex flex-col items-start justify-between p-4 bg-gray-100 rounded-lg shadow-md md:flex-row"
                 >
-                  <div>
+                  <div className="mb-4 md:mb-0">
                     <h3 className="text-lg font-semibold text-gray-800">{event.name}</h3>
                     <p className="text-sm text-gray-600">{event.details}</p>
                     <p className="text-sm text-gray-600">
@@ -110,8 +110,8 @@ const EventDetailsDashboard: React.FC = () => {
         </section>
 
         {/* Create New Event Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Create New Event</h2>
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Create New Event</h2>
           <form className="mt-4 space-y-4" onSubmit={handleSubmit}>
             {/* Event Name */}
             <div>

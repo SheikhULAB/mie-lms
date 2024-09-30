@@ -38,16 +38,16 @@ const MockTestManagementDashboard: React.FC = () => {
   ]);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col md:flex-row h-screen">
       {/* Sidebar positioned on the left */}
       <Sidebar />
 
       {/* Main content area */}
       <div className="flex-1 p-6 space-y-6 bg-gradient-to-br from-gray-100 via-white to-gray-50">
         {/* Mock Test Overview Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Mock Test Overview</h2>
-          <div className="overflow-x-auto">
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Mock Test Overview</h2>
+          <div className="overflow-x-auto mt-4">
             <table className="min-w-full bg-white">
               <thead className="bg-gray-100">
                 <tr>
@@ -70,9 +70,9 @@ const MockTestManagementDashboard: React.FC = () => {
         </section>
 
         {/* Evaluation Overview Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Evaluation Overview</h2>
-          <div className="overflow-x-auto">
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Evaluation Overview</h2>
+          <div className="overflow-x-auto mt-4">
             <table className="min-w-full bg-white">
               <thead className="bg-gray-100">
                 <tr>
@@ -93,9 +93,9 @@ const MockTestManagementDashboard: React.FC = () => {
         </section>
 
         {/* Teacher Activity Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Teacher Activity</h2>
-          <div className="overflow-x-auto">
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Teacher Activity</h2>
+          <div className="overflow-x-auto mt-4">
             <table className="min-w-full bg-white">
               <thead className="bg-gray-100">
                 <tr>
@@ -118,9 +118,9 @@ const MockTestManagementDashboard: React.FC = () => {
         </section>
 
         {/* Mock Test Performance Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Mock Test Performance</h2>
-          <div className="p-4 bg-gray-100 rounded-lg">
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Mock Test Performance</h2>
+          <div className="p-4 bg-gray-100 rounded-lg mt-4">
             {/* Replace with a dynamic chart or graph component */}
             <p className="text-gray-600">Performance Graph Placeholder</p>
           </div>

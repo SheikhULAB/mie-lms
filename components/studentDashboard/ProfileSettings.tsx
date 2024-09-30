@@ -1,14 +1,11 @@
-// src/components/StudentDashboard.tsx
 "use client"; // Marks the component as a Client Component
 
 import React from "react";
-import Link from "next/link";
 import Sidebar from "./Sidebar";
 
 const StudentDashboard: React.FC = () => {
   return (
     <div className="flex h-screen bg-gray-100">
-     
       <Sidebar />
 
       {/* Main Content Section */}

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
-import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 
 interface Teacher {
@@ -10,6 +10,7 @@ interface Teacher {
 
 const TeacherList = () => {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [editingTeacher, setEditingTeacher] = useState<Teacher | null>(null);
 
   const fetchTeachers = async () => {
     const querySnapshot = await getDocs(collection(db, "users"));
@@ -18,7 +19,7 @@ const TeacherList = () => {
       if (doc.data().role === "teacher") {
         teacherData.push({
           name: doc.data().firstName + " " + doc.data().lastName,
-          teacherId: doc.data().uid,
+          teacherId: doc.id,
         });
       }
     });
@@ -28,19 +29,62 @@ const TeacherList = () => {
   const handleAddTeacher = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const newTeacher: Teacher = {
-      name: form.teacherName.value,
-      teacherId: form.teacherID.value,
-    };
+    const name = form.teacherName.value;
 
-    await addDoc(collection(db, "users"), {
-      firstName: form.teacherName.value.split(" ")[0],
-      lastName: form.teacherName.value.split(" ")[1],
-      uid: form.teacherID.value,
+    if (!name) {
+      alert("Please fill in the name field.");
+      return;
+    }
+
+    const [firstName, ...lastNameArr] = name.split(" ");
+    const lastName = lastNameArr.join(" ");
+
+    const docRef = await addDoc(collection(db, "users"), {
+      firstName,
+      lastName,
       role: "teacher",
     });
+
+    const newTeacher: Teacher = {
+      name,
+      teacherId: docRef.id,
+    };
+
     setTeachers([...teachers, newTeacher]);
     form.reset();
+  };
+
+  const handleEditTeacher = (teacher: Teacher) => {
+    setEditingTeacher(teacher);
+  };
+
+  const handleUpdateTeacher = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("teacherName")?.toString() || "";
+
+    if (!name || !editingTeacher) {
+      alert("Please fill in the name field.");
+      return;
+    }
+
+    const [firstName, ...lastNameArr] = name.split(" ");
+    const lastName = lastNameArr.join(" ");
+
+    const userDoc = doc(db, "users", editingTeacher.teacherId);
+    await updateDoc(userDoc, {
+      firstName,
+      lastName,
+    });
+
+    setTeachers(
+      teachers.map((teacher) =>
+        teacher.teacherId === editingTeacher.teacherId
+          ? { ...teacher, name }
+          : teacher
+      )
+    );
+    setEditingTeacher(null);
   };
 
   const handleDeleteTeacher = async (uid: string) => {
@@ -73,7 +117,7 @@ const TeacherList = () => {
                 <td className="px-6 py-4">
                   <button
                     className="px-4 py-2 text-white bg-blue-500 rounded-md shadow-lg hover:bg-blue-600 hover:scale-105"
-                    onClick={() => console.log("Edit")}
+                    onClick={() => handleEditTeacher(teacher)}
                   >
                     Edit
                   </button>
@@ -90,23 +134,24 @@ const TeacherList = () => {
         </table>
       </div>
 
-      {/* Add Teacher Form */}
+      {/* Add/Edit Teacher Form */}
       <div className="p-6 mt-6 bg-white rounded-lg shadow-lg">
-        <h3 className="text-xl font-semibold text-gray-800">Add New Teacher</h3>
-        <form className="mt-4 space-y-6" onSubmit={handleAddTeacher}>
+        <h3 className="text-xl font-semibold text-gray-800">
+          {editingTeacher ? "Edit Teacher" : "Add New Teacher"}
+        </h3>
+        <form
+          className="mt-4 space-y-6"
+          onSubmit={editingTeacher ? handleUpdateTeacher : handleAddTeacher}
+        >
           <div>
-            <label htmlFor="teacherName" className="block text-gray-600">Name</label>
+            <label htmlFor="teacherName" className="block text-gray-600">
+              Name
+            </label>
             <input
               type="text"
               id="teacherName"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none bg-gray-50 focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="teacherID" className="block text-gray-600">Teacher ID</label>
-            <input
-              type="text"
-              id="teacherID"
+              name="teacherName"
+              defaultValue={editingTeacher ? editingTeacher.name : ""}
               className="w-full px-4 py-2 border border-gray-300 rounded-md outline-none bg-gray-50 focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -114,8 +159,17 @@ const TeacherList = () => {
             type="submit"
             className="px-6 py-2 text-white bg-blue-500 rounded-md shadow hover:bg-blue-600"
           >
-            Add Teacher
+            {editingTeacher ? "Update Teacher" : "Add Teacher"}
           </button>
+          {editingTeacher && (
+            <button
+              type="button"
+              className="px-6 py-2 ml-2 text-white bg-gray-500 rounded-md shadow hover:bg-gray-600"
+              onClick={() => setEditingTeacher(null)}
+            >
+              Cancel
+            </button>
+          )}
         </form>
       </div>
     </section>

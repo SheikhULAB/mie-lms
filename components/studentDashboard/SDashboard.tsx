@@ -8,11 +8,11 @@ const SDashboard: React.FC = () => {
             <Sidebar />
 
             {/* Main content area */}
-            <div className="flex-1 p-6 space-y-6 overflow-y-auto">
+            <div className="flex-1 p-4 sm:p-6 space-y-6 overflow-y-auto">
                 {/* Overview Section */}
-                <section className="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-semibold text-gray-800">Overview</h2>
-                    <div className="grid grid-cols-1 gap-6 mt-4 md:grid-cols-2 lg:grid-cols-4">
+                <section className="p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">Overview</h2>
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 mt-4 md:grid-cols-2 lg:grid-cols-4">
                         {[
                             { title: 'Enrolled Courses', count: 5, color: 'red' },
                             { title: 'Completed Mocks', count: 12, color: 'green' },
@@ -35,9 +35,9 @@ const SDashboard: React.FC = () => {
                 </section>
 
                 {/* Mock Test and Evaluation Section */}
-                <section className="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-semibold text-gray-800">Mock Tests & Evaluation</h2>
-                    <div className="grid grid-cols-1 gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
+                <section className="p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">Mock Tests & Evaluation</h2>
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
                         {[
                             { title: 'Academic Mock Test', href: '#', color: 'red', label: 'Take Test' },
                             { title: 'General Mock Test', href: 'student_dashboard_General Mock.html', color: 'green', label: 'Take Test' },
@@ -56,8 +56,8 @@ const SDashboard: React.FC = () => {
                 </section>
 
                 {/* Test Results Section */}
-                <section className="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-semibold text-gray-800">Previous Test Results</h2>
+                <section className="p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">Previous Test Results</h2>
                     <div className="mt-4 overflow-x-auto">
                         <table className="min-w-full bg-white">
                             <thead className="bg-gray-100">
@@ -84,9 +84,9 @@ const SDashboard: React.FC = () => {
                 </section>
 
                 {/* Subscription Plans Section */}
-                <section className="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-semibold text-gray-800">Subscription Plans</h2>
-                    <div className="grid grid-cols-1 gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
+                <section className="p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">Subscription Plans</h2>
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
                         {[
                             { title: 'Free Plan', description: 'Access limited resources and mock tests for free.', color: 'red' },
                             { title: 'Premium Plan', description: 'Unlock more mock tests and resources for a fee.', color: 'green' },
@@ -102,9 +102,9 @@ const SDashboard: React.FC = () => {
                 </section>
 
                 {/* Available Courses Section */}
-                <section className="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-semibold text-gray-800">Available Courses</h2>
-                    <div className="grid grid-cols-1 gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
+                <section className="p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">Available Courses</h2>
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 mt-4 md:grid-cols-2 lg:grid-cols-3">
                         {[
                             { title: 'IELTS Preparation Course', description: 'Prepare for the IELTS exam with comprehensive materials.' },
                             { title: 'Advanced English Grammar', description: 'Improve your grammar skills for better writing and speaking.' },
@@ -123,8 +123,8 @@ const SDashboard: React.FC = () => {
                 </section>
 
                 {/* Daily Quiz Section */}
-                <section className="p-6 bg-white rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-semibold text-gray-800">Daily Quiz</h2>
+                <section className="p-4 sm:p-6 bg-white rounded-lg shadow-lg">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">Daily Quiz</h2>
                     <p className="mt-2 text-gray-600">Test your grammar knowledge with today's quiz. Select the correct answers and submit.</p>
 
                     <div className="mt-4 space-y-4">

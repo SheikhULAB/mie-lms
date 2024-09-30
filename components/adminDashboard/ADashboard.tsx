@@ -1,4 +1,3 @@
-// ADashboard.tsx
 import React from 'react';
 import Sidebar from './Sidebar';
 
@@ -34,13 +33,13 @@ const ADashboard: React.FC = () => {
   ];
 
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col md:flex-row h-screen">
       <Sidebar />
-      <div className="flex-1 p-6 space-y-6 overflow-y-auto">
+      <div className="flex-1 p-4 space-y-6 md:p-6 overflow-y-auto">
         {/* Overview Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Overview</h2>
-          <div className="grid grid-cols-1 gap-6 mt-4 md:grid-cols-2 lg:grid-cols-4">
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Overview</h2>
+          <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: 'Total Users', count: 1234, color: 'red' },
               { title: 'Active Tests', count: 56, color: 'green' },
@@ -63,8 +62,8 @@ const ADashboard: React.FC = () => {
         </section>
 
         {/* Reports Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Reports</h2>
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Reports</h2>
           <div className="mt-4">
             <div className="p-4 bg-gray-100 rounded-lg">
               <p className="text-gray-600">Chart Placeholder</p>
@@ -73,8 +72,8 @@ const ADashboard: React.FC = () => {
         </section>
 
         {/* User Activity Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">User Activity</h2>
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">User Activity</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="min-w-full bg-white">
               <thead className="bg-gray-100">
@@ -110,8 +109,8 @@ const ADashboard: React.FC = () => {
         </section>
 
         {/* Recent Activities Section */}
-        <section className="p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800">Recent Activities</h2>
+        <section className="p-4 bg-white rounded-lg shadow-lg md:p-6">
+          <h2 className="text-xl font-semibold text-gray-800 md:text-2xl">Recent Activities</h2>
           <div className="mt-4">
             <ul className="space-y-4">
               {recentActivities.map((activity, index) => (
